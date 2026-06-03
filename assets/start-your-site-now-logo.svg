@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Start Your Site Now">
+  <defs>
+    <linearGradient id="rocketGradient" x1="42" y1="138" x2="132" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5B21B6"/>
+      <stop offset=".48" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <circle cx="90" cy="90" r="88" fill="#070612"/>
+  <path d="M58 132c-10-29-2-63 21-85 20-20 49-27 77-24-2 29-13 56-35 76-22 20-54 28-83 17" fill="none" stroke="url(#rocketGradient)" stroke-width="11" stroke-linecap="round" opacity=".92"/>
+  <path d="M75 120c13-18 30-39 51-63" fill="none" stroke="url(#rocketGradient)" stroke-width="12" stroke-linecap="round" opacity=".55" filter="url(#glow)"/>
+  <path d="M88 94l24-42 28-9-7 30-42 26-18 34 10-36-31 9 31-23z" fill="url(#rocketGradient)" filter="url(#glow)"/>
+  <circle cx="122" cy="63" r="8" fill="#070612"/>
+</svg>
