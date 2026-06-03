@@ -3,7 +3,7 @@
    ============================================ */
 
 const BRAND_NAME = 'startyoursitenow';
-const BRAND_LOGO = 'assets/start-your-site-now-full-logo-circle.svg';
+const BRAND_LOGO = 'assets/ChatGPT Image 2 giu 2026, 12_57_15.png';
 const CONTACT_TARGET = '#contatti';
 const BNB_URL = 'https://bnb-claude.vercel.app/';
 
