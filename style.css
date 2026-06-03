@@ -1413,3 +1413,23 @@ ol, ul { list-style: none; }
 .rm-cta-pink { background: #e91e8c; color: #fff; }
 .rm-chips-beauty { background: rgba(26,10,18,0.8); border-top: 1px solid rgba(255,130,180,0.10); }
 .rm-chip-pink { background: rgba(233,30,140,0.12); color: #ffb3d1; border: 1px solid rgba(233,30,140,0.20); }
+
+/* ============================================
+   SCREENSHOT REALI — Portfolio
+   ============================================ */
+.esempio-preview {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+.preview-screenshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.esempio-card:hover .preview-screenshot {
+  transform: scale(1.04) translateY(-2%);
+}
