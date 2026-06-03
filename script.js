@@ -1,5 +1,5 @@
 /* ============================================
-   SCRIPT.JS — Start Your Site Now Landing Page
+   SCRIPT.JS - Start Your Site Now Landing Page
    ============================================ */
 
 function trackEvent(eventName, params = {}) {
@@ -26,9 +26,11 @@ function scrollToSection(selector) {
 function brandMarkup() {
   return `
     <span class="brand-mark" aria-hidden="true">
-      <img src="${BRAND_LOGO}" alt="" />
+      <img src="${BRAND_LOGO}" alt="" decoding="async" />
     </span>
-    <span class="brand-name">${BRAND_NAME}</span>
+    <span class="brand-name" aria-label="${BRAND_NAME}">
+      <span class="brand-word">start</span><span class="brand-word brand-word--accent">your</span><span class="brand-word">site</span><span class="brand-word brand-word--accent">now</span>
+    </span>
   `;
 }
 
@@ -38,9 +40,11 @@ function applyRequestedLandingUpdates() {
     .brand-logo {
       display: inline-flex !important;
       align-items: center !important;
+      justify-content: flex-start !important;
       gap: 12px !important;
       width: auto !important;
       height: auto !important;
+      max-width: 100% !important;
       overflow: visible !important;
       background: transparent !important;
       border: 0 !important;
@@ -49,35 +53,59 @@ function applyRequestedLandingUpdates() {
       margin-right: auto;
       letter-spacing: 0 !important;
       font-size: 0 !important;
+      line-height: 1 !important;
+      flex: 0 1 auto;
+      min-width: 0;
+      text-decoration: none !important;
     }
     .brand-mark {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       overflow: hidden;
-      flex: 0 0 auto;
+      flex: 0 0 46px;
       border: 1px solid rgba(167,139,250,0.28);
       box-shadow: 0 8px 24px rgba(0,0,0,0.24);
       background: #050508;
+      display: grid;
+      place-items: center;
     }
     .brand-mark img {
       width: 100% !important;
       height: 100% !important;
-      object-fit: cover !important;
+      max-width: none !important;
+      object-fit: contain !important;
+      object-position: center !important;
       display: block;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      transform: none !important;
     }
     .brand-name {
+      display: inline-flex;
+      align-items: baseline;
+      flex: 0 1 auto;
+      min-width: 0;
+      white-space: nowrap;
       font-family: var(--font-display);
       font-size: 18px;
       font-weight: 800;
-      color: var(--white);
       line-height: 1;
       letter-spacing: 0;
       text-transform: lowercase;
     }
+    .brand-word {
+      color: var(--white);
+    }
+    .brand-word--accent {
+      color: #8b5cf6;
+    }
     .navbar.scrolled .brand-mark {
       width: 42px;
       height: 42px;
+      flex-basis: 42px;
     }
     .soluzione-text > .btn-primary {
       display: none !important;
@@ -157,28 +185,47 @@ function applyRequestedLandingUpdates() {
     }
     .footer .nav-logo.brand-logo {
       margin-right: 0 !important;
+      justify-content: flex-start !important;
     }
     .footer .brand-mark {
       width: 40px;
       height: 40px;
+      flex-basis: 40px;
     }
     .footer .brand-name {
       font-size: 18px;
     }
+    @media (max-width: 900px) {
+      .brand-mark,
+      .navbar.scrolled .brand-mark {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+      }
+      .brand-name {
+        font-size: 16px;
+      }
+    }
     @media (max-width: 640px) {
-      .nav-inner { gap: 14px; }
+      .nav-inner { gap: 12px; }
       .brand-logo { gap: 8px !important; }
       .brand-mark,
       .navbar.scrolled .brand-mark {
-        width: 38px;
-        height: 38px;
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
       }
       .brand-name {
-        font-size: 14px;
-        max-width: 118px;
+        font-size: 13px;
       }
       .faq { padding-bottom: 88px; }
       .cta-finale { padding-top: 88px; }
+      .footer .brand-logo { gap: 10px !important; }
+      .footer .brand-mark {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+      }
       .footer .brand-name { font-size: 16px; }
     }
   `;
@@ -216,7 +263,7 @@ function applyRequestedLandingUpdates() {
 
   const whatsappButton = document.getElementById('btnWaForm');
   if (whatsappButton) {
-    whatsappButton.innerHTML = '<span aria-hidden="true">💬</span><span>Prepara messaggio WhatsApp</span>';
+    whatsappButton.innerHTML = '<span aria-hidden="true">WhatsApp</span><span>Prepara messaggio WhatsApp</span>';
     whatsappButton.setAttribute('aria-label', 'Prepara un messaggio WhatsApp con i dati inseriti');
   }
 
@@ -327,7 +374,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ============================================
-// SMOOTH SCROLL — link interni
+// SMOOTH SCROLL - link interni
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
@@ -343,7 +390,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// COUNTER ANIMATO — statistiche hero
+// COUNTER ANIMATO - statistiche hero
 // ============================================
 function animateCounter(el, target, suffix, duration = 1200) {
   const startTime = performance.now();
@@ -379,7 +426,7 @@ if (statsSection) {
 }
 
 // ============================================
-// PARALLAX LEGGERO — hero glow
+// PARALLAX LEGGERO - hero glow
 // ============================================
 const heroGlow = document.querySelector('.hero-glow');
 if (heroGlow) {
@@ -389,7 +436,7 @@ if (heroGlow) {
 }
 
 // ============================================
-// FORM → WHATSAPP
+// FORM -> WHATSAPP
 // ============================================
 const btnWaForm = document.getElementById('btnWaForm');
 if (btnWaForm) {
@@ -397,9 +444,9 @@ if (btnWaForm) {
     const attivita = document.getElementById('f-attivita')?.value.trim();
     const messaggio = document.getElementById('f-messaggio')?.value.trim();
 
-    let testo = 'Ciao! Vorrei una demo gratuita per il sito della mia attività.';
-    if (attivita) testo += `\n\n🏢 Attività: ${attivita}`;
-    if (messaggio) testo += `\n\n💬 ${messaggio}`;
+    let testo = 'Ciao! Vorrei una demo gratuita per il sito della mia attivita.';
+    if (attivita) testo += `\n\nAttivita: ${attivita}`;
+    if (messaggio) testo += `\n\n${messaggio}`;
 
     window.open(
       `https://wa.me/39XXXXXXXXXX?text=${encodeURIComponent(testo)}`,
@@ -412,7 +459,7 @@ if (btnWaForm) {
 }
 
 // ============================================
-// META PIXEL — traccia click su CTA WhatsApp
+// META PIXEL - traccia click su CTA WhatsApp
 // ============================================
 document.querySelectorAll('a[href*="wa.me"]').forEach(btn => {
   btn.addEventListener('click', () => {
