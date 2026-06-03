@@ -82,6 +82,10 @@ function applyRequestedLandingUpdates() {
       box-shadow: none !important;
       background: transparent !important;
       transform: none !important;
+      filter: none !important;
+      -webkit-filter: none !important;
+      opacity: 1 !important;
+      mix-blend-mode: normal !important;
     }
     .brand-name {
       display: inline-flex;
