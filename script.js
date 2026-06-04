@@ -6,6 +6,350 @@ const BRAND_NAME = 'startyoursitenow';
 const BRAND_LOGO = 'assets/ChatGPT Image 2 giu 2026, 12_57_15.png';
 const CONTACT_TARGET = '#contatti';
 const BNB_URL = 'https://bnb-claude.vercel.app/';
+const MOBILE_VIEWPORT_CONTENT = 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
+
+function enforceMobileViewport() {
+  let viewportMeta = document.querySelector('meta[name="viewport"]');
+  if (!viewportMeta) {
+    viewportMeta = document.createElement('meta');
+    viewportMeta.name = 'viewport';
+    document.head.prepend(viewportMeta);
+  }
+
+  viewportMeta.setAttribute('content', MOBILE_VIEWPORT_CONTENT);
+}
+
+function injectMobileConversionStyles() {
+  if (document.getElementById('mobileConversionUxStyles')) return;
+
+  const style = document.createElement('style');
+  style.id = 'mobileConversionUxStyles';
+  style.textContent = `
+    html {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      touch-action: pan-x pan-y;
+    }
+
+    body {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    input,
+    textarea,
+    select,
+    button {
+      font-size: 16px;
+    }
+
+    .problem-grid .problem-card[aria-hidden="true"] {
+      display: none;
+    }
+
+    .mobile-slider-indicator {
+      display: none;
+    }
+
+    @keyframes mobileProblemMarquee {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(calc(-50% - 8px), 0, 0); }
+    }
+
+    @keyframes swipeArrowPulse {
+      0%, 100% {
+        opacity: 0.75;
+        transform: translate(-50%, -50%);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(calc(-50% + 13px), -50%);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: 100%;
+        max-width: 100%;
+        padding-inline: 16px;
+      }
+
+      .section {
+        padding: 58px 0;
+        overflow-x: clip;
+      }
+
+      .section-header {
+        margin-bottom: 34px;
+        padding-inline: 2px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(27px, 8vw, 34px);
+        line-height: 1.12;
+        letter-spacing: -0.4px;
+      }
+
+      .section-sub {
+        max-width: 30rem;
+        margin-inline: auto;
+        font-size: 15px;
+        line-height: 1.58;
+      }
+
+      .nav-inner {
+        gap: 12px;
+        padding-inline: 16px;
+      }
+
+      .btn-nav {
+        display: none;
+      }
+
+      .problema .container {
+        overflow: hidden;
+      }
+
+      .problem-grid {
+        display: flex;
+        width: max-content;
+        max-width: none;
+        gap: 16px;
+        margin-left: calc((100vw - min(82vw, 310px)) / 2 - 16px);
+        will-change: transform;
+      }
+
+      .problem-grid .problem-card[aria-hidden="true"] {
+        display: block;
+        pointer-events: none;
+      }
+
+      .problem-grid.is-marquee {
+        animation: mobileProblemMarquee 24s linear infinite;
+        animation-play-state: paused;
+      }
+
+      .problem-grid.is-marquee.is-running {
+        animation-play-state: running;
+      }
+
+      .problem-grid.is-marquee:hover {
+        animation-play-state: paused;
+      }
+
+      .problem-card {
+        width: min(82vw, 310px);
+        min-height: 176px;
+        flex: 0 0 min(82vw, 310px);
+        padding: 22px 20px;
+      }
+
+      .problem-card:hover,
+      .servizio-card:hover,
+      .pricing-card:hover,
+      .pricing-card.featured:hover,
+      .esempio-card:hover {
+        transform: none;
+      }
+
+      .problem-icon {
+        font-size: 28px;
+        margin-bottom: 12px;
+      }
+
+      .problem-card h3 {
+        font-size: 16px;
+      }
+
+      .problem-card p {
+        font-size: 13.5px;
+        line-height: 1.55;
+      }
+
+      .pricing-grid,
+      .esempi-grid {
+        display: flex;
+        grid-template-columns: none;
+        gap: 0;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 0;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        overscroll-behavior-x: contain;
+      }
+
+      .pricing-grid::-webkit-scrollbar,
+      .esempi-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .pricing-card,
+      .esempio-card {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+      }
+
+      .pricing-card {
+        min-height: 0;
+        padding: 28px 22px;
+      }
+
+      .pricing-card > .pricing-cta,
+      .pricing-card > .btn-primary,
+      .pricing-card > .btn-ghost-blue {
+        white-space: normal !important;
+        line-height: 1.1 !important;
+        font-size: 14px !important;
+      }
+
+      .pricing-card:first-child::after,
+      .esempio-card:first-child::after {
+        content: "\\2192";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 3;
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 999px;
+        background: rgba(6,6,10,0.82);
+        color: var(--white);
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 800;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.35);
+        pointer-events: none;
+        animation: swipeArrowPulse 1.55s ease-in-out infinite;
+      }
+
+      .pricing-grid.slider-touched .pricing-card:first-child::after,
+      .esempi-grid.slider-touched .esempio-card:first-child::after {
+        opacity: 0;
+        animation: none;
+      }
+
+      .mobile-slider-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 16px;
+        min-height: 12px;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      .mobile-slider-indicator span {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: rgba(248,248,255,0.24);
+        transition: width 0.25s ease, background 0.25s ease;
+      }
+
+      .mobile-slider-indicator span.is-active {
+        width: 22px;
+        background: var(--electric-bright);
+      }
+
+      .mobile-slider-indicator.is-muted {
+        opacity: 0.38;
+        transform: scale(0.92);
+      }
+
+      .servizi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .servizio-card {
+        min-width: 0;
+        padding: 16px 12px;
+        border-radius: 14px;
+      }
+
+      .servizio-icon {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .servizio-card h3 {
+        font-size: 13.5px;
+        line-height: 1.18;
+        margin-bottom: 7px;
+        overflow-wrap: anywhere;
+      }
+
+      .servizio-card p {
+        font-size: 12.5px;
+        line-height: 1.42;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .container,
+      .nav-inner {
+        padding-inline: 14px;
+      }
+
+      .hero-title {
+        font-size: 34px;
+        letter-spacing: -0.5px;
+      }
+
+      .hero-sub {
+        font-size: 15.5px;
+      }
+
+      .problem-grid {
+        margin-left: calc((100vw - min(82vw, 310px)) / 2 - 14px);
+      }
+
+      .servizi-grid {
+        gap: 9px;
+      }
+
+      .servizio-card {
+        padding: 14px 10px;
+      }
+
+      .servizio-card h3 {
+        font-size: 12.8px;
+      }
+
+      .servizio-card p {
+        font-size: 12px;
+      }
+
+      .pricing-card {
+        padding: 26px 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .problem-grid.is-marquee,
+      .pricing-card:first-child::after,
+      .esempio-card:first-child::after {
+        animation: none;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
 
 function trackEvent(eventName, params = {}) {
   if (typeof fbq !== 'undefined') fbq('track', eventName, params);
@@ -235,7 +579,7 @@ function applyRequestedLandingUpdates() {
   document.querySelectorAll('.pricing-card > a').forEach((button) => {
     button.classList.add('pricing-cta');
     button.setAttribute('href', CONTACT_TARGET);
-    button.setAttribute('aria-label', 'Richiedi la demo gratuita');
+    button.setAttribute('aria-label', 'Richieda la demo gratuita');
     button.textContent = 'Richiedi la demo gratuita';
   });
 
@@ -268,7 +612,87 @@ function applyRequestedLandingUpdates() {
   });
 }
 
+enforceMobileViewport();
 applyRequestedLandingUpdates();
+injectMobileConversionStyles();
+
+function setupProblemMarquee() {
+  const grid = document.querySelector('.problem-grid');
+  if (!grid || grid.dataset.marqueeReady === 'true') return;
+
+  const cards = Array.from(grid.children);
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.classList.remove('reveal', 'visible');
+    clone.removeAttribute('data-delay');
+    clone.setAttribute('aria-hidden', 'true');
+    grid.appendChild(clone);
+  });
+
+  grid.classList.add('is-marquee');
+  grid.dataset.marqueeReady = 'true';
+
+  if ('IntersectionObserver' in window) {
+    const section = grid.closest('.problema') || grid;
+    const marqueeObserver = new IntersectionObserver((entries) => {
+      grid.classList.toggle('is-running', entries[0].isIntersecting);
+    }, { threshold: 0.18 });
+    marqueeObserver.observe(section);
+  } else {
+    grid.classList.add('is-running');
+  }
+}
+
+function setupMobileSnapSlider(selector) {
+  const slider = document.querySelector(selector);
+  if (!slider || slider.dataset.sliderReady === 'true') return;
+
+  const cards = Array.from(slider.children).filter(child => !child.classList.contains('mobile-slider-indicator'));
+  if (cards.length < 2) return;
+
+  const indicator = document.createElement('div');
+  indicator.className = 'mobile-slider-indicator';
+  indicator.setAttribute('aria-hidden', 'true');
+
+  cards.forEach((_, index) => {
+    const dot = document.createElement('span');
+    if (index === 0) dot.classList.add('is-active');
+    indicator.appendChild(dot);
+  });
+
+  slider.after(indicator);
+
+  let touched = false;
+  let scrollTimeout;
+
+  function setTouched() {
+    if (touched) return;
+    touched = true;
+    slider.classList.add('slider-touched');
+    indicator.classList.add('is-muted');
+  }
+
+  function updateIndicator() {
+    const activeIndex = Math.round(slider.scrollLeft / Math.max(slider.clientWidth, 1));
+    indicator.querySelectorAll('span').forEach((dot, index) => {
+      dot.classList.toggle('is-active', index === activeIndex);
+    });
+  }
+
+  slider.dataset.sliderReady = 'true';
+  slider.addEventListener('pointerdown', setTouched, { passive: true });
+  slider.addEventListener('touchstart', setTouched, { passive: true });
+  slider.addEventListener('wheel', setTouched, { passive: true });
+  slider.addEventListener('scroll', () => {
+    window.clearTimeout(scrollTimeout);
+    scrollTimeout = window.setTimeout(updateIndicator, 40);
+  }, { passive: true });
+  window.addEventListener('resize', updateIndicator);
+}
+
+setupProblemMarquee();
+setupMobileSnapSlider('.pricing-grid');
+setupMobileSnapSlider('.esempi-grid');
 
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -337,7 +761,7 @@ function animateCounter(el, target, suffix, duration = 1200) {
   requestAnimationFrame(update);
 }
 
-const statsSection = document.querySelector('.hero-stats');
+const statsSection = document.querySelectorAll('.hero-stats');
 if (statsSection) {
   let triggered = false;
   const statsObserver = new IntersectionObserver((entries) => {
