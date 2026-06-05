@@ -4,7 +4,7 @@
 
 const BRAND_NAME = 'startyoursitenow';
 const BRAND_LOGO = 'assets/brand-logo.png';
-const CONTACT_TARGET = 'https://wa.me/393274813873?text=Ciao!%20Vorrei%20una%20demo%20gratuita%20per%20il%20sito%20della%20mia%20attivita.';
+const CONTACT_TARGET = 'https://api.whatsapp.com/send?phone=393274813873&text=Ciao!%20Vorrei%20una%20demo%20gratuita%20per%20il%20sito%20della%20mia%20attivita.';
 const BNB_URL = 'https://bnb-claude.vercel.app/';
 const MOBILE_VIEWPORT_CONTENT = 'width=device-width, initial-scale=1, viewport-fit=cover';
 
@@ -580,8 +580,8 @@ function applyRequestedLandingUpdates() {
     navDemoButton.setAttribute('href', CONTACT_TARGET);
     navDemoButton.setAttribute('target', '_blank');
     navDemoButton.setAttribute('rel', 'noopener noreferrer');
-    navDemoButton.setAttribute('aria-label', 'Scrivi su WhatsApp per richiedere una demo gratuita');
-    navDemoButton.textContent = 'WhatsApp';
+    navDemoButton.setAttribute('aria-label', 'Richiedi una demo gratuita');
+    navDemoButton.textContent = 'Demo gratis';
   }
 
   document.querySelectorAll('a[href*="bnb-ebon.vercel.app"], a[aria-label*="B&B"]').forEach((link) => {
@@ -592,17 +592,17 @@ function applyRequestedLandingUpdates() {
 
   document.querySelectorAll('.pricing-card > a').forEach((button) => {
     button.classList.add('pricing-cta');
-    button.setAttribute('href', CONTACT_TARGET);
     button.setAttribute('target', '_blank');
     button.setAttribute('rel', 'noopener noreferrer');
-    button.setAttribute('aria-label', 'Chiedi su WhatsApp se questa opzione va bene per la tua attivita');
-    button.textContent = 'Chiedi se va bene per te';
+    if (!button.getAttribute('aria-label')) {
+      button.setAttribute('aria-label', 'Chiedi se questa opzione va bene per la tua attivita');
+    }
   });
 
   const whatsappButton = document.getElementById('btnWaForm');
   if (whatsappButton) {
-    whatsappButton.innerHTML = '<span aria-hidden="true">WhatsApp</span><span>Prepara messaggio WhatsApp</span>';
-    whatsappButton.setAttribute('aria-label', 'Prepara un messaggio WhatsApp con i dati inseriti');
+    whatsappButton.innerHTML = '<span aria-hidden="true">💬</span><span>Apri chat</span>';
+    whatsappButton.setAttribute('aria-label', 'Apri chat con i dati inseriti');
   }
 
   const faqSection = document.getElementById('faq');
@@ -803,12 +803,12 @@ if (btnWaForm) {
     let testo = 'Ciao! Vorrei una demo gratuita per il sito della mia attivita.';
     if (attivita) testo += `\n\nAttivita: ${attivita}`;
     if (messaggio) testo += `\n\n${messaggio}`;
-    window.open(`https://wa.me/393274813873?text=${encodeURIComponent(testo)}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://api.whatsapp.com/send?phone=393274813873&text=${encodeURIComponent(testo)}`, '_blank', 'noopener,noreferrer');
     trackEvent('Lead', { content_name: 'Form WhatsApp' });
   });
 }
 
-document.querySelectorAll('a[href*="wa.me"]').forEach(btn => {
+document.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"]').forEach(btn => {
   btn.addEventListener('click', () => trackEvent('Lead', { content_name: 'WhatsApp CTA' }));
 });
 
