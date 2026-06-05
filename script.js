@@ -3,8 +3,8 @@
    ============================================ */
 
 const BRAND_NAME = 'startyoursitenow';
-const BRAND_LOGO = 'assets/ChatGPT Image 2 giu 2026, 12_57_15.png';
-const CONTACT_TARGET = '#contatti';
+const BRAND_LOGO = 'assets/brand-logo.png';
+const CONTACT_TARGET = 'https://wa.me/393274813873?text=Ciao!%20Vorrei%20una%20demo%20gratuita%20per%20il%20sito%20della%20mia%20attivita.';
 const BNB_URL = 'https://bnb-claude.vercel.app/';
 const MOBILE_VIEWPORT_CONTENT = 'width=device-width, initial-scale=1, viewport-fit=cover';
 
@@ -578,9 +578,10 @@ function applyRequestedLandingUpdates() {
   const navDemoButton = document.querySelector('.navbar .btn-nav');
   if (navDemoButton) {
     navDemoButton.setAttribute('href', CONTACT_TARGET);
-    navDemoButton.removeAttribute('target');
-    navDemoButton.removeAttribute('rel');
-    navDemoButton.setAttribute('aria-label', "Vai all'ultima sezione per richiedere una demo gratuita");
+    navDemoButton.setAttribute('target', '_blank');
+    navDemoButton.setAttribute('rel', 'noopener noreferrer');
+    navDemoButton.setAttribute('aria-label', 'Scrivi su WhatsApp per richiedere una demo gratuita');
+    navDemoButton.textContent = 'WhatsApp';
   }
 
   document.querySelectorAll('a[href*="bnb-ebon.vercel.app"], a[aria-label*="B&B"]').forEach((link) => {
@@ -592,8 +593,10 @@ function applyRequestedLandingUpdates() {
   document.querySelectorAll('.pricing-card > a').forEach((button) => {
     button.classList.add('pricing-cta');
     button.setAttribute('href', CONTACT_TARGET);
-    button.setAttribute('aria-label', 'Richiedi la demo gratuita');
-    button.textContent = 'Richiedi la demo gratuita';
+    button.setAttribute('target', '_blank');
+    button.setAttribute('rel', 'noopener noreferrer');
+    button.setAttribute('aria-label', 'Chiedi su WhatsApp se questa opzione va bene per la tua attivita');
+    button.textContent = 'Chiedi se va bene per te';
   });
 
   const whatsappButton = document.getElementById('btnWaForm');
