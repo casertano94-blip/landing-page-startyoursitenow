@@ -1053,7 +1053,10 @@ button {
 /* ============================================
    FAQ
    ============================================ */
-.faq { background: var(--black); }
+.faq {
+  background: var(--black);
+  padding-bottom: 88px;
+}
 .faq-list { max-width: 720px; margin: 0 auto; }
 .faq-item { border-bottom: 1px solid var(--border); }
 .faq-question {
@@ -1100,7 +1103,11 @@ button {
 /* ============================================
    CTA FINALE — layout split scuro
    ============================================ */
-.cta-finale { background: var(--dark2); }
+.cta-finale {
+  background: var(--dark2);
+  padding-top: 104px;
+  padding-bottom: 104px;
+}
 
 .cta-split {
   display: grid;
@@ -1216,14 +1223,14 @@ button {
 .footer {
   background: var(--black);
   border-top: 1px solid var(--border);
-  padding: 40px 0 24px;
+  padding: 56px 0 28px;
 }
 .footer-inner {
   display: flex;
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 .footer-inner p { color: var(--white-muted); font-size: 14px; margin-right: auto; }
 .footer-wa { color: var(--white-dim); font-size: 14px; font-weight: 500; transition: color 0.2s; }
@@ -1233,12 +1240,12 @@ button {
   justify-content: flex-start;
 }
 .footer .brand-mark {
-  width: 64px;
-  height: 64px;
-  flex-basis: 64px;
+  width: 56px;
+  height: 56px;
+  flex-basis: 56px;
 }
 .footer .brand-name {
-  font-size: 18px;
+  font-size: 16px;
 }
 .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; }
 .footer-bottom p { color: var(--white-muted); font-size: 13px; }
