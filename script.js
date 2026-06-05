@@ -123,11 +123,36 @@ function setupStickyCta() {
   if (!stickyCta) return;
 
   const update = () => {
-    stickyCta.classList.toggle('visible', window.scrollY > 320);
+    const isMobile = window.matchMedia('(max-width: 640px)').matches;
+    const hero = document.querySelector('.hero');
+    const blockedSections = [document.querySelector('.cta-finale'), document.querySelector('.footer')].filter(Boolean);
+
+    if (!isMobile) {
+      stickyCta.classList.remove('visible');
+      return;
+    }
+
+    const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 520;
+    const isBlocked = blockedSections.some((section) => {
+      const rect = section.getBoundingClientRect();
+      return rect.top < window.innerHeight - 90 && rect.bottom > 120;
+    });
+
+    stickyCta.classList.toggle('visible', window.scrollY > heroBottom - 80 && !isBlocked);
   };
 
   update();
   window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+}
+
+function setupMobileSliders() {
+  document.querySelectorAll('.esempi-grid, .pricing-grid').forEach((slider) => {
+    const markTouched = () => slider.classList.add('slider-touched');
+    slider.addEventListener('pointerdown', markTouched, { passive: true });
+    slider.addEventListener('touchstart', markTouched, { passive: true });
+    slider.addEventListener('scroll', markTouched, { passive: true });
+  });
 }
 
 function setupWhatsappForm() {
@@ -175,6 +200,7 @@ setupRevealAnimations();
 setupFaq();
 setupSmoothAnchors();
 setupStickyCta();
+setupMobileSliders();
 setupWhatsappForm();
 setupWhatsappTracking();
 setupCtaViewTracking();
