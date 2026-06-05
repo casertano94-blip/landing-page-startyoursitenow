@@ -110,7 +110,10 @@ button {
   top: 0; left: 0; right: 0;
   z-index: 1000;
   padding: 20px 0;
-  transition: var(--transition);
+  border-bottom: 0;
+  box-shadow: none;
+  transform: translateZ(0);
+  transition: background-color 0.2s ease, padding 0.2s ease;
   background: transparent;
 }
 .navbar.scrolled {
@@ -118,7 +121,8 @@ button {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 14px 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0;
+  box-shadow: none;
 }
 .nav-inner {
   max-width: 1160px;
@@ -689,9 +693,12 @@ button {
 .pricing { background: var(--dark); }
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 340px));
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .pricing-card {
   background: var(--card-bg);
@@ -703,6 +710,7 @@ button {
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
+  height: 100%;
   min-height: 100%;
 }
 .pricing-card.featured {
@@ -716,7 +724,7 @@ button {
   box-shadow: 0 24px 70px rgba(0,0,0,0.35);
 }
 .pricing-card.featured:hover {
-  transform: scale(1.01);
+  transform: translateY(-5px);
   box-shadow: 0 0 0 1px var(--electric), 0 28px 80px rgba(139,92,246,0.22);
 }
 .pricing-badge {
