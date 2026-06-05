@@ -6,7 +6,7 @@ const BRAND_NAME = 'startyoursitenow';
 const BRAND_LOGO = 'assets/ChatGPT Image 2 giu 2026, 12_57_15.png';
 const CONTACT_TARGET = '#contatti';
 const BNB_URL = 'https://bnb-claude.vercel.app/';
-const MOBILE_VIEWPORT_CONTENT = 'width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover';
+const MOBILE_VIEWPORT_CONTENT = 'width=device-width, initial-scale=1, viewport-fit=cover';
 
 function enforceMobileViewport() {
   let viewportMeta = document.querySelector('meta[name="viewport"]');
@@ -357,7 +357,20 @@ function trackEvent(eventName, params = {}) {
 
 function scrollToSection(selector) {
   const target = document.querySelector(selector);
-  const navbar = document.getElementById('navbar');
+  
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobileMenu() {
+  mobileMenu?.classList.remove('open');
+  mobileMenuToggle?.setAttribute('aria-expanded', 'false');
+}
+mobileMenuToggle?.addEventListener('click', () => {
+  const isOpen = mobileMenu?.classList.toggle('open') || false;
+  mobileMenuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+mobileMenu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
+
+const navbar = document.getElementById('navbar');
   if (!target) return;
 
   const offset = (navbar?.offsetHeight || 0) + 16;
@@ -579,7 +592,7 @@ function applyRequestedLandingUpdates() {
   document.querySelectorAll('.pricing-card > a').forEach((button) => {
     button.classList.add('pricing-cta');
     button.setAttribute('href', CONTACT_TARGET);
-    button.setAttribute('aria-label', 'Richieda la demo gratuita');
+    button.setAttribute('aria-label', 'Richiedi la demo gratuita');
     button.textContent = 'Richiedi la demo gratuita';
   });
 
@@ -614,7 +627,7 @@ function applyRequestedLandingUpdates() {
 
 enforceMobileViewport();
 applyRequestedLandingUpdates();
-injectMobileConversionStyles();
+// Mobile conversion styles are kept in style.css for predictable first render.
 
 function setupProblemMarquee() {
   const grid = document.querySelector('.problem-grid');
@@ -690,9 +703,7 @@ function setupMobileSnapSlider(selector) {
   window.addEventListener('resize', updateIndicator);
 }
 
-setupProblemMarquee();
-setupMobileSnapSlider('.pricing-grid');
-setupMobileSnapSlider('.esempi-grid');
+// Mobile cards stay static so visitors can read and compare without hidden horizontal gestures.
 
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -734,9 +745,7 @@ document.querySelectorAll('.faq-item').forEach(item => {
 });
 
 const stickyCta = document.getElementById('stickyCta');
-window.addEventListener('scroll', () => {
-  stickyCta?.classList.toggle('visible', window.scrollY > 300);
-}, { passive: true });
+stickyCta?.classList.add('visible');
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
@@ -761,7 +770,7 @@ function animateCounter(el, target, suffix, duration = 1200) {
   requestAnimationFrame(update);
 }
 
-const statsSection = document.querySelectorAll('.hero-stats');
+const statsSection = document.querySelector('.hero-stats');
 if (statsSection) {
   let triggered = false;
   const statsObserver = new IntersectionObserver((entries) => {
@@ -791,7 +800,7 @@ if (btnWaForm) {
     let testo = 'Ciao! Vorrei una demo gratuita per il sito della mia attivita.';
     if (attivita) testo += `\n\nAttivita: ${attivita}`;
     if (messaggio) testo += `\n\n${messaggio}`;
-    window.open(`https://wa.me/39XXXXXXXXXX?text=${encodeURIComponent(testo)}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/393274813873?text=${encodeURIComponent(testo)}`, '_blank', 'noopener,noreferrer');
     trackEvent('Lead', { content_name: 'Form WhatsApp' });
   });
 }
